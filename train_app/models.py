@@ -12,16 +12,16 @@ from db import Base, APPTZ
 class Interval(Base):
     __tablename__ = "intervals"
     id = Column(Integer, primary_key=True, index=True)
+    station_code = Column(String(3), nullable=False)
     start_timestamp = Column(Integer)
     stop_timestamp = Column(Integer)
-    items = relationship("Timetable", primaryjoin="Interval.id == Timetable.interval_id", cascade="all, delete")
+    timetables = relationship("Timetable", primaryjoin="Interval.id == Timetable.interval_id", cascade="all, delete")
 
 
 class Timetable(Base):
     __tablename__ = "timetables"
 
     id = Column(Integer, primary_key=True, index=True)
-    station_code = Column(String(3), nullable=False)
     service = Column(Integer)
     train_uid = Column(String(20), nullable=False)
     aimed_departure_timestamp = Column(Integer)
