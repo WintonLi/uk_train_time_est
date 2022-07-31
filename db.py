@@ -7,13 +7,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pytz
+from settings import settings
 
-APPTZ = pytz.timezone('Europe/London')
-SQLALCHEMY_DATABASE_URL = "sqlite:///./train.db"
+APPTZ = pytz.timezone(settings.tz)
+NAT = -1  # invalid timestamp value
+SQLALCHEMY_DATABASE_URL = settings.db_url
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False},echo=True
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}, echo=True
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

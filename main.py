@@ -7,9 +7,10 @@ import uvicorn
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 from datetime import datetime
-from train_app.shcemas import Journey
+from train_app.schemas import Journey
 import train_app.models as models
 from db import get_db, engine
+from settings import settings
 
 
 app = FastAPI(title="Timetable FastAPI Application",
@@ -30,4 +31,4 @@ def get_arrival_time(stations: str, date: str, start_time: str, db: Session = De
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=9000, reload=True)
+    uvicorn.run("main:app", port=settings.server_port, reload=True)
